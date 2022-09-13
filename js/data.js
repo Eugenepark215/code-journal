@@ -22,10 +22,12 @@ form.addEventListener('submit', function (event) {
   codeJournalObject[image] = imageURL.value;
   codeJournalObject[notes] = notes.value;
   image.src = 'images/placeholder-image-square.jpg';
-  codeJournalObject[data.nextEntryId] = data.nextEntryId++;
+  codeJournalObject.entryId = data.nextEntryId++;
   data.entries.unshift(codeJournalObject);
   form.reset();
+});
 
+window.addEventListener('beforeunload', function (event) {
   var stringifyDataEntries = JSON.stringify(data.entries);
   localStorage.setItem('code-journal-local-storage', stringifyDataEntries);
 });
