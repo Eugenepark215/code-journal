@@ -17,8 +17,66 @@
 </head>
 <body>
   <header>
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <h3>Code Journal</h3>
+        </div>
+      </div>
+    </div class="container">
   </header>
   <main>
+    <div data-view="entry-form" class="entry-form">
+      <form>
+        <div class="container">
+          <div class="row">
+            <div class="column-full">
+              <h1>New Entry</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-half">
+              <div class="img">
+                <img src="images/placeholder-image-square.jpg">
+              </div>
+            </div>
+            <div class="column-half">
+              <div class="rowgap">
+                <div class="row">
+                  <div class="column-full">
+                    <div class="margin marginbottom">
+                      <label for="Title">Title</label>
+                    </div>
+                    <input type="text" id="Title" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column-full">
+                    <div class="margin marginbottom">
+                      <label for="PhotoURL">Photo URL</label>
+                    </div>
+                    <input type="url" id="PhotoURL" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="margin">
+              <div class="column-full">
+                <div class="marginbottom">
+                  <label for="Notes">Notes</label>
+                </div>
+                <textarea id="Notes" required></textarea>
+              </div>
+            </div>
+            <div class="column-full">
+              <div class="flex-end margin marginbottom">
+                <button>SAVE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
