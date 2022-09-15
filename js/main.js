@@ -10,11 +10,12 @@ var placeholder = document.querySelector('li');
 
 var entries = document.querySelector('#entries');
 var form = document.querySelector('form');
-var entryForm = document.querySelector('.entry-form');
+var entryForm = document.querySelector('#entry-form');
 var title = document.querySelector('#Title');
 var notes = document.querySelector('#Notes');
 entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
+  data.view = 'entries';
   var codeJournalObject = {};
   codeJournalObject.title = title.value;
   codeJournalObject.image = imageURL.value;
@@ -26,7 +27,6 @@ entryForm.addEventListener('submit', function (event) {
   placeholder.setAttribute('class', 'hidden');
   entryForm.setAttribute('class', 'view hidden');
   entries.setAttribute('class', 'view active');
-  data.view = 'entries';
   form.reset();
 });
 
@@ -64,10 +64,16 @@ function domTreeReturn(entry) {
 var ul = document.querySelector('.list');
 window.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
-    data.view = 'entries';
     var domTrees = domTreeReturn(data.entries[i]);
     ul.appendChild(domTrees);
     placeholder.setAttribute('class', 'hidden');
+  }
+  for (var m = 0; m < view.length; m++) {
+    if (data.view === view[m].getAttribute('data-view')) {
+      view[m].className = 'view active';
+    } else {
+      view[m].className = 'view hidden';
+    }
   }
 });
 
@@ -87,6 +93,7 @@ aEntries.addEventListener('click', function (event) {
 
 var aNew = document.querySelector('.anew');
 aNew.addEventListener('click', function (event) {
+  data.view = 'entry-form';
   var eventTarget2 = event.target.getAttribute('data-view');
   for (var k = 0; k < view.length; k++) {
     if (eventTarget2 === view[k].getAttribute('data-view')) {
