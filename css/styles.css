@@ -2,6 +2,14 @@
   background-color: rgb(240 240 240);
 }
 
+#entries {
+  background-color: rgb(240 240 240);
+}
+
+.active {
+  background-color: rgb(240 240 240);
+}
+
 header {
   background-color: rgb(86 43 129);
   color: white;
@@ -50,7 +58,6 @@ label {
 
 .flex-end {
   display: flex;
-  width: 100%;
   justify-content: flex-end;
 }
 
@@ -65,6 +72,11 @@ button {
   cursor: pointer;
 }
 
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .margin {
   width: 100%;
   margin-top: 3%;
@@ -72,4 +84,57 @@ button {
 
 .marginbottom {
   margin-bottom: 3%;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+p {
+  font-family: "Open Sans", sans-serif;
+  line-height: 25px;
+}
+
+h3 {
+  font-family: "Open Sans", sans-serif;
+}
+
+h2 {
+  width: 50%;
+  font-family: "Proza Libre", sans-serif;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(86 43 129);
+  font-family: "Open Sans", sans-serif;
+}
+
+.margin-left {
+  margin-left: 2rem;
+}
+
+.aentries {
+  margin-top: 3.75%;
+}
+
+.anew {
+  text-align: center;
+  padding-top: 30%;
+  width: 3rem;
+  margin-top: 20%;
+  margin-bottom: 30%;
+}
+
+.display-flex {
+  display: flex;
 }
