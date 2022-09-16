@@ -117,6 +117,6 @@ aNew.addEventListener('click', function (event) {
 
 ul.addEventListener('click', function (event) {
   if (event.target.tagName === 'I') {
-    return true;
+    data.view = 'entry-form';
   }
 });
