@@ -50,9 +50,19 @@ function domTreeReturn(entry) {
   columnHalf2.setAttribute('class', 'column-half');
   row.appendChild(columnHalf2);
 
+  var row2 = document.createElement('div');
+  row2.setAttribute('class', 'row space-between');
+  columnHalf2.appendChild(row2);
+
   var h3 = document.createElement('h3');
   h3.textContent = entry.title;
-  columnHalf2.appendChild(h3);
+  row2.appendChild(h3);
+
+  var editPen = document.createElement('i');
+  editPen.setAttribute('class', 'fa-solid fa-pen pen');
+  editPen.setAttribute('data-view', 'edit-entry');
+  editPen.setAttribute('href', '#edit-entry');
+  row2.appendChild(editPen);
 
   var p1 = document.createElement('p');
   p1.textContent = entry.notes;
@@ -66,6 +76,7 @@ window.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var domTrees = domTreeReturn(data.entries[i]);
     ul.appendChild(domTrees);
+    domTrees.setAttribute('data-entry-id', data.entries[i].entryId);
     placeholder.setAttribute('class', 'hidden');
   }
   for (var m = 0; m < view.length; m++) {
@@ -101,5 +112,11 @@ aNew.addEventListener('click', function (event) {
     } else {
       view[k].className = 'view hidden';
     }
+  }
+});
+
+ul.addEventListener('click', function (event) {
+  if (event.target.tagName === 'I') {
+    return true;
   }
 });

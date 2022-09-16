@@ -6,6 +6,10 @@
   background-color: rgb(240 240 240);
 }
 
+#edit-entry {
+  background-color: rgb(240 240 240);
+}
+
 .active {
   background-color: rgb(240 240 240);
 }
@@ -111,7 +115,12 @@ h2 {
   font-family: "Proza Libre", sans-serif;
 }
 
-a {
+.margin-left {
+  margin-left: 2rem;
+}
+
+.aentries {
+  margin-top: 3.75%;
   cursor: pointer;
   text-decoration: none;
   color: white;
@@ -119,22 +128,32 @@ a {
   font-family: "Open Sans", sans-serif;
 }
 
-.margin-left {
-  margin-left: 2rem;
-}
-
-.aentries {
-  margin-top: 3.75%;
-}
-
 .anew {
   text-align: center;
-  padding-top: 30%;
-  width: 3rem;
+  padding-top: 20%;
+  width: 3.5rem;
   margin-top: 20%;
   margin-bottom: 30%;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(86 43 129);
+  font-family: "Open Sans", sans-serif;
 }
 
 .display-flex {
   display: flex;
+}
+
+.pen {
+  cursor: pointer;
+  color: rgb(86 43 129);
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.pen:hover {
+  color: purple;
+  cursor: pointer;
 }
