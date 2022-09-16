@@ -60,8 +60,8 @@ function domTreeReturn(entry) {
 
   var editPen = document.createElement('i');
   editPen.setAttribute('class', 'fa-solid fa-pen pen');
-  editPen.setAttribute('data-view', 'edit-entry');
-  editPen.setAttribute('href', '#edit-entry');
+  editPen.setAttribute('data-view', 'entry-form');
+  editPen.setAttribute('href', '#entry-form');
   row2.appendChild(editPen);
 
   var p1 = document.createElement('p');
