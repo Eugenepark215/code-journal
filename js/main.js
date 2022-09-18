@@ -13,6 +13,10 @@ var form = document.querySelector('form');
 var entryForm = document.querySelector('#entry-form');
 var title = document.querySelector('#Title');
 var notes = document.querySelector('#Notes');
+var h1 = document.querySelector('h1');
+var textArea = document.querySelector('textarea');
+var image = document.querySelector('img');
+
 entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
   data.view = 'entries';
@@ -28,6 +32,19 @@ entryForm.addEventListener('submit', function (event) {
   entryForm.setAttribute('class', 'view hidden');
   entries.setAttribute('class', 'view active');
   form.reset();
+  // if (data.editing !== null) {
+  //   data.editing.title = title.value;
+  //   data.editing.image = imageURL.value;
+  //   data.editing.notes = notes.value;
+  //   placeHolder.setAttribute('src', imageURL.value);
+  //   ul.prepend(domTreeReturn(data.editing));
+  //   for (var r = 0; r < data.entries.length; r++) {
+  //     if (data.editing.entryId === (parseInt(data.entries[r].getAttribute('data-entry-id')))) {
+  //       delete data.entries[r];
+  //       delete data.editing;
+  //     }
+  //   }
+  // }
 });
 
 function domTreeReturn(entry) {
@@ -86,10 +103,17 @@ window.addEventListener('DOMContentLoaded', function (event) {
       view[m].className = 'view hidden';
     }
   }
+  // for (var r = 0; r < data.entries.length; r++) {
+  //   if (data.editing.entryId === (parseInt(data.entries[r].getAttribute('data-entry-id')))) {
+  //     delete data.entries[r];
+  //     delete data.editing;
+  //   }
+  // }
 });
 
 var view = document.querySelectorAll('.view');
 var aEntries = document.querySelector('.aentries');
+
 aEntries.addEventListener('click', function (event) {
   data.view = 'entries';
   var eventTarget = event.target.getAttribute('data-view');
@@ -109,6 +133,11 @@ aNew.addEventListener('click', function (event) {
   for (var k = 0; k < view.length; k++) {
     if (eventTarget2 === view[k].getAttribute('data-view')) {
       view[k].className = 'view active';
+      h1.textContent = 'New Entry';
+      title.value = '';
+      textArea.value = '';
+      imageURL.value = '';
+      image.src = 'images/placeholder-image-square.jpg';
     } else {
       view[k].className = 'view hidden';
     }
@@ -116,7 +145,28 @@ aNew.addEventListener('click', function (event) {
 });
 
 ul.addEventListener('click', function (event) {
+  var eventTarget3 = event.target.getAttribute('data-view');
+  var dataEntryId = (parseInt(event.target.closest('.container').getAttribute('data-entry-id')));
   if (event.target.tagName === 'I') {
     data.view = 'entry-form';
+    for (var p = 0; p < data.entries.length; p++) {
+      if (data.entries[p].entryId === dataEntryId) {
+        data.editing = data.entries[p];
+        title.value = data.entries[p].title;
+        textArea.value = data.entries[p].notes;
+        imageURL.value = data.entries[p].image;
+        image.src = data.entries[p].image;
+      }
+    } for (var o = 0; o < view.length; o++) {
+      if (eventTarget3 === view[o].getAttribute('data-view')) {
+        view[o].className = 'view active';
+        h1.textContent = 'Edit Entry';
+      } else {
+        view[o].className = 'view hidden';
+      }
+    }
   }
+
+  // delete event.target.closest('.container');
+
 });
