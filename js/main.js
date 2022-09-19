@@ -12,7 +12,6 @@ var entries = document.querySelector('#entries');
 var form = document.querySelector('form');
 var entryForm = document.querySelector('#entry-form');
 var title = document.querySelector('#Title');
-var notes = document.querySelector('#Notes');
 var h1 = document.querySelector('h1');
 var textArea = document.querySelector('textarea');
 var image = document.querySelector('img');
@@ -21,35 +20,35 @@ entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
   data.view = 'entries';
   var codeJournalObject = {};
-  codeJournalObject.title = title.value;
-  codeJournalObject.image = imageURL.value;
-  codeJournalObject.notes = notes.value;
-  placeHolder.setAttribute('src', 'images/placeholder-image-square.jpg');
-  codeJournalObject.entryId = data.nextEntryId++;
-  data.entries.unshift(codeJournalObject);
-  ul.prepend(domTreeReturn(codeJournalObject));
-  placeholder.setAttribute('class', 'hidden');
-  entryForm.setAttribute('class', 'view hidden');
-  entries.setAttribute('class', 'view active');
-  form.reset();
-  // if (data.editing !== null) {
-  //   data.editing.title = title.value;
-  //   data.editing.image = imageURL.value;
-  //   data.editing.notes = notes.value;
-  //   placeHolder.setAttribute('src', imageURL.value);
-  //   ul.prepend(domTreeReturn(data.editing));
-  //   for (var r = 0; r < data.entries.length; r++) {
-  //     if (data.editing.entryId === (parseInt(data.entries[r].getAttribute('data-entry-id')))) {
-  //       delete data.entries[r];
-  //       delete data.editing;
-  //     }
-  //   }
-  // }
+  if (h1.textContent === 'New Entry') {
+    codeJournalObject.title = title.value;
+    codeJournalObject.image = imageURL.value;
+    codeJournalObject.textArea = textArea.value;
+    placeHolder.setAttribute('src', 'images/placeholder-image-square.jpg');
+    codeJournalObject.entryId = data.nextEntryId++;
+    data.entries.unshift(codeJournalObject);
+    ul.prepend(domTreeReturn(codeJournalObject));
+    placeholder.setAttribute('class', 'hidden');
+    entryForm.setAttribute('class', 'view hidden');
+    entries.setAttribute('class', 'view active');
+    form.reset();
+  } else if (h1.textContent === 'Edit Entry') {
+    data.editing.title = title.value;
+    data.editing.image = imageURL.value;
+    data.editing.textArea = textArea.value;
+    imageURL.value = data.editing.image;
+    placeholder.setAttribute('class', 'hidden');
+    entryForm.setAttribute('class', 'view hidden');
+    entries.setAttribute('class', 'view active');
+    ul.prepend(domTreeReturn(data.editing));
+    form.reset();
+  }
 });
 
 function domTreeReturn(entry) {
   var container = document.createElement('div');
   container.setAttribute('class', 'container');
+  container.setAttribute('data-entry-id', data.entries.length);
 
   var row = document.createElement('div');
   row.setAttribute('class', 'row');
@@ -82,7 +81,7 @@ function domTreeReturn(entry) {
   row2.appendChild(editPen);
 
   var p1 = document.createElement('p');
-  p1.textContent = entry.notes;
+  p1.textContent = entry.textArea;
   columnHalf2.appendChild(p1);
 
   return container;
@@ -103,12 +102,6 @@ window.addEventListener('DOMContentLoaded', function (event) {
       view[m].className = 'view hidden';
     }
   }
-  // for (var r = 0; r < data.entries.length; r++) {
-  //   if (data.editing.entryId === (parseInt(data.entries[r].getAttribute('data-entry-id')))) {
-  //     delete data.entries[r];
-  //     delete data.editing;
-  //   }
-  // }
 });
 
 var view = document.querySelectorAll('.view');
@@ -152,12 +145,14 @@ ul.addEventListener('click', function (event) {
     for (var p = 0; p < data.entries.length; p++) {
       if (data.entries[p].entryId === dataEntryId) {
         data.editing = data.entries[p];
-        title.value = data.entries[p].title;
-        textArea.value = data.entries[p].notes;
-        imageURL.value = data.entries[p].image;
-        image.src = data.entries[p].image;
+        title.value = data.editing.title;
+        textArea.value = data.editing.textArea;
+        imageURL.value = data.editing.image;
+        image.src = data.editing.image;
+        event.target.closest('.container').remove();
       }
-    } for (var o = 0; o < view.length; o++) {
+    }
+    for (var o = 0; o < view.length; o++) {
       if (eventTarget3 === view[o].getAttribute('data-view')) {
         view[o].className = 'view active';
         h1.textContent = 'Edit Entry';
@@ -166,7 +161,4 @@ ul.addEventListener('click', function (event) {
       }
     }
   }
-
-  // delete event.target.closest('.container');
-
 });
