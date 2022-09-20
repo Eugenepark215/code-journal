@@ -20,7 +20,7 @@ entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
   data.view = 'entries';
   var codeJournalObject = {};
-  if (h1.textContent === 'New Entry') {
+  if (data.editing === null) {
     codeJournalObject.title = title.value;
     codeJournalObject.image = imageURL.value;
     codeJournalObject.textArea = textArea.value;
@@ -32,7 +32,7 @@ entryForm.addEventListener('submit', function (event) {
     entryForm.setAttribute('class', 'view hidden');
     entries.setAttribute('class', 'view active');
     form.reset();
-  } else if (h1.textContent === 'Edit Entry') {
+  } else if (data.editing !== null) {
     data.editing.title = title.value;
     data.editing.image = imageURL.value;
     data.editing.textArea = textArea.value;
