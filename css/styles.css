@@ -157,3 +157,7 @@ h2 {
   color: purple;
   cursor: pointer;
 }
+
+.delete {
+  color: red;
+}

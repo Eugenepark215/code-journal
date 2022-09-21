@@ -131,11 +131,13 @@ aNew.addEventListener('click', function (event) {
       textArea.value = '';
       imageURL.value = '';
       image.src = 'images/placeholder-image-square.jpg';
+
     } else {
       view[k].className = 'view hidden';
     }
   }
 });
+var deleteButton = document.querySelector('.delete view hidden');
 
 ul.addEventListener('click', function (event) {
   var eventTarget3 = event.target.getAttribute('data-view');
@@ -156,9 +158,15 @@ ul.addEventListener('click', function (event) {
       if (eventTarget3 === view[o].getAttribute('data-view')) {
         view[o].className = 'view active';
         h1.textContent = 'Edit Entry';
+        deleteButton.setAttribute('class', 'view active');
       } else {
         view[o].className = 'view hidden';
       }
     }
   }
+});
+
+deleteButton.addEventListener('click', function () {
+  data.view = 'entry-form';
+  deleteButton.setAttribute('class', 'delete view active');
 });
