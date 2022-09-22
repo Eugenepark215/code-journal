@@ -137,7 +137,8 @@ aNew.addEventListener('click', function (event) {
     }
   }
 });
-var deleteButton = document.querySelector('.delete view hidden');
+
+var deleteButton = document.querySelector('#delete');
 
 ul.addEventListener('click', function (event) {
   var eventTarget3 = event.target.getAttribute('data-view');
@@ -158,15 +159,27 @@ ul.addEventListener('click', function (event) {
       if (eventTarget3 === view[o].getAttribute('data-view')) {
         view[o].className = 'view active';
         h1.textContent = 'Edit Entry';
-        deleteButton.setAttribute('class', 'view active');
       } else {
         view[o].className = 'view hidden';
       }
     }
+    deleteButton.setAttribute('class', 'view active');
   }
 });
+var modal = document.querySelector('#modal');
+var cancelButton = document.querySelector('#cancel');
+var confirmButton = document.querySelector('#confirm');
 
-deleteButton.addEventListener('click', function () {
-  data.view = 'entry-form';
-  deleteButton.setAttribute('class', 'delete view active');
+deleteButton.addEventListener('click', function (event) {
+  modal.className = 'view active';
+});
+
+cancelButton.addEventListener('click', function (event) {
+  modal.className = 'view hidden';
+});
+
+confirmButton.addEventListener('click', function (event) {
+  entries.className = 'view active';
+  modal.className = 'view hidden';
+  entryForm.className = 'view hidden';
 });
