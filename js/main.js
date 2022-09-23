@@ -40,7 +40,7 @@ entryForm.addEventListener('submit', function (event) {
     placeholder.setAttribute('class', 'hidden');
     entryForm.setAttribute('class', 'view hidden');
     entries.setAttribute('class', 'view active');
-    ul.prepend(domTreeReturn(data.editing));
+    placeholder.replaceWith(domTreeReturn(data.editing));
     form.reset();
   }
 });
@@ -182,4 +182,10 @@ confirmButton.addEventListener('click', function (event) {
   entries.className = 'view active';
   modal.className = 'view hidden';
   entryForm.className = 'view hidden';
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1);
+      data.editing = null;
+    }
+  }
 });

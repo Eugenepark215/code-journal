@@ -15,5 +15,4 @@ if (previousDataJSON !== null) {
 window.addEventListener('beforeunload', function (event) {
   var stringifyDataEntries = JSON.stringify(data);
   localStorage.setItem('code-journal-local-storage', stringifyDataEntries);
-  // localStorage.clear();
 });
