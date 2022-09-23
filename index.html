@@ -43,8 +43,8 @@
         </div>
       </div>
       <ul class="list">
-        <li>No entries have been recorded</li>
       </ul>
+      <p id="no-entries">No entries have been recorded</p>
     </div>
     <div data-view="entry-form" class="view active" id="entry-form">
       <form>
@@ -88,7 +88,12 @@
                 <textarea id="Notes" required></textarea>
               </div>
             </div>
-            <div class="column-full">
+            <div class="column-half">
+              <div class="margin">
+                <a id="delete" class="view hidden">Delete Entry</a>
+              </div>
+            </div>
+            <div class="column-half">
               <div class="flex-end margin marginbottom">
                 <button type="submit">SAVE</button>
               </div>
@@ -96,6 +101,23 @@
           </div>
         </div>
       </form>
+    </div>
+    <div id="modal" class="view hidden">
+      <div class="whitebox">
+        <div class="box">
+          <div class="column-full">
+            <p>Are you sure you want to delete this entry?</p>
+          </div>
+          <div class="row marginbottom">
+            <div class="column-half">
+              <button id="cancel">CANCEL</button>
+            </div>
+            <div class="column-half">
+              <button id="confirm">CONFIRM</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>
