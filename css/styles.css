@@ -10,6 +10,11 @@
   background-color: rgb(240 240 240);
 }
 
+#no-entries {
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
 .active {
   background-color: rgb(240 240 240);
 }
@@ -98,7 +103,6 @@ ul {
 
 li {
   padding-bottom: 2rem;
-  text-align: center;
 }
 
 p {

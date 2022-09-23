@@ -1,12 +1,11 @@
 /* global data */
-
 var imageURL = document.querySelector('#PhotoURL');
 var placeHolder = document.querySelector('#PlaceHolderURL');
 imageURL.addEventListener('input', function (event) {
   placeHolder.setAttribute('src', event.target.value);
 });
 
-var placeholder = document.querySelector('li');
+var noEntries = document.querySelector('#no-entries');
 
 var entries = document.querySelector('#entries');
 var form = document.querySelector('form');
@@ -15,6 +14,7 @@ var title = document.querySelector('#Title');
 var h1 = document.querySelector('h1');
 var textArea = document.querySelector('textarea');
 var image = document.querySelector('img');
+//
 
 entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -28,7 +28,7 @@ entryForm.addEventListener('submit', function (event) {
     codeJournalObject.entryId = data.nextEntryId++;
     data.entries.unshift(codeJournalObject);
     ul.prepend(domTreeReturn(codeJournalObject));
-    placeholder.setAttribute('class', 'hidden');
+    noEntries.setAttribute('class', 'hidden');
     entryForm.setAttribute('class', 'view hidden');
     entries.setAttribute('class', 'view active');
     form.reset();
@@ -37,18 +37,24 @@ entryForm.addEventListener('submit', function (event) {
     data.editing.image = imageURL.value;
     data.editing.textArea = textArea.value;
     imageURL.value = data.editing.image;
-    placeholder.setAttribute('class', 'hidden');
+    noEntries.setAttribute('class', 'hidden');
     entryForm.setAttribute('class', 'view hidden');
     entries.setAttribute('class', 'view active');
-    placeholder.replaceWith(domTreeReturn(data.editing));
+    var li = document.querySelectorAll('li');
+    for (var i = 0; i < li.length; i++) {
+      if (parseInt(li[i].getAttribute('dataEntryId')) === data.editing.entryId) {
+        li[i].replaceWith(domTreeReturn(data.editing));
+        data.editing = null;
+      }
+    }
     form.reset();
   }
 });
 
 function domTreeReturn(entry) {
-  var container = document.createElement('div');
+  var container = document.createElement('li');
   container.setAttribute('class', 'container');
-  container.setAttribute('data-entry-id', data.entries.length);
+  container.setAttribute('dataEntryId', data.entries.length);
 
   var row = document.createElement('div');
   row.setAttribute('class', 'row');
@@ -92,8 +98,8 @@ window.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var domTrees = domTreeReturn(data.entries[i]);
     ul.appendChild(domTrees);
-    domTrees.setAttribute('data-entry-id', data.entries[i].entryId);
-    placeholder.setAttribute('class', 'hidden');
+    domTrees.setAttribute('dataEntryId', data.entries[i].entryId);
+    noEntries.setAttribute('class', 'hidden');
   }
   for (var m = 0; m < view.length; m++) {
     if (data.view === view[m].getAttribute('data-view')) {
@@ -142,7 +148,7 @@ var deleteButton = document.querySelector('#delete');
 
 ul.addEventListener('click', function (event) {
   var eventTarget3 = event.target.getAttribute('data-view');
-  var dataEntryId = (parseInt(event.target.closest('.container').getAttribute('data-entry-id')));
+  var dataEntryId = (parseInt(event.target.closest('.container').getAttribute('dataEntryId')));
   if (event.target.tagName === 'I') {
     data.view = 'entry-form';
     for (var p = 0; p < data.entries.length; p++) {
@@ -152,7 +158,6 @@ ul.addEventListener('click', function (event) {
         textArea.value = data.editing.textArea;
         imageURL.value = data.editing.image;
         image.src = data.editing.image;
-        event.target.closest('.container').remove();
       }
     }
     for (var o = 0; o < view.length; o++) {
@@ -185,7 +190,14 @@ confirmButton.addEventListener('click', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing.entryId) {
       data.entries.splice(i, 1);
+    }
+    var li = document.querySelectorAll('li');
+  } for (var s = 0; s < li.length; s++) {
+    if (parseInt(li[s].getAttribute('dataEntryId')) === data.editing.entryId) {
+      li[s].remove();
       data.editing = null;
     }
+  } if (data.entries.length === 0) {
+    noEntries.setAttribute('class', 'view active');
   }
 });
