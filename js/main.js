@@ -42,7 +42,7 @@ entryForm.addEventListener('submit', function (event) {
     entries.setAttribute('class', 'view active');
     var li = document.querySelectorAll('li');
     for (var i = 0; i < li.length; i++) {
-      if (parseInt(li[i].getAttribute('dataEntryId')) === data.editing.entryId) {
+      if (parseInt(li[i].getAttribute('data-entry-id')) === data.editing.entryId) {
         li[i].replaceWith(domTreeReturn(data.editing));
         data.editing = null;
       }
@@ -54,7 +54,7 @@ entryForm.addEventListener('submit', function (event) {
 function domTreeReturn(entry) {
   var container = document.createElement('li');
   container.setAttribute('class', 'container');
-  container.setAttribute('dataEntryId', data.entries.length);
+  container.setAttribute('data-entry-id', data.entries.length);
 
   var row = document.createElement('div');
   row.setAttribute('class', 'row');
@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var domTrees = domTreeReturn(data.entries[i]);
     ul.appendChild(domTrees);
-    domTrees.setAttribute('dataEntryId', data.entries[i].entryId);
+    domTrees.setAttribute('data-entry-id', data.entries[i].entryId);
     noEntries.setAttribute('class', 'hidden');
   }
   for (var m = 0; m < view.length; m++) {
@@ -148,7 +148,7 @@ var deleteButton = document.querySelector('#delete');
 
 ul.addEventListener('click', function (event) {
   var eventTarget3 = event.target.getAttribute('data-view');
-  var dataEntryId = (parseInt(event.target.closest('.container').getAttribute('dataEntryId')));
+  var dataEntryId = (parseInt(event.target.closest('.container').getAttribute('data-entry-id')));
   if (event.target.tagName === 'I') {
     data.view = 'entry-form';
     for (var p = 0; p < data.entries.length; p++) {
@@ -191,13 +191,14 @@ confirmButton.addEventListener('click', function (event) {
     if (data.entries[i].entryId === data.editing.entryId) {
       data.entries.splice(i, 1);
     }
-    var li = document.querySelectorAll('li');
-  } for (var s = 0; s < li.length; s++) {
-    if (parseInt(li[s].getAttribute('dataEntryId')) === data.editing.entryId) {
+  }
+  var li = document.querySelectorAll('li');
+  for (var s = 0; s < li.length; s++) {
+    if (parseInt(li[s].getAttribute('data-entry-id')) === data.editing.entryId) {
       li[s].remove();
-      data.editing = null;
     }
-  } if (data.entries.length === 0) {
+  }
+  if (data.entries.length === 0) {
     noEntries.setAttribute('class', 'view active');
   }
 });
